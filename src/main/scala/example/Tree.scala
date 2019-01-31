@@ -44,3 +44,4 @@ object TreeUtils {
     loop(50000, Leaf(1))
   }
 }
+
