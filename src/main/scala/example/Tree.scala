@@ -86,7 +86,7 @@ object TowardContDataType {
 
 }
 
-object TreeWContinuation {
+object TreeWContinuation extends App {
 
   import data.continuation.basic.Continuation
   import data.continuation.basic.Continuation._
@@ -106,4 +106,9 @@ object TreeWContinuation {
     mapping(t).run(identity)
   }
 
+  val t1 = Node(Leaf("a"), Node(Leaf("b"), Leaf("c")))
+
+  val t2 = map(t1)(str => str.startsWith("b"))
+
+  println(t2)
 }
