@@ -1,6 +1,6 @@
 package example
 
-import Tree._
+import data.Tree._
 
 
 object TreeCont {
@@ -29,4 +29,3 @@ object TreeNaive {
   }
 
 }
-
