@@ -27,7 +27,7 @@ object Goto extends App {
            GOTO("INCREMENT")
          else
            GOTO("START")
-    _ = println("-- Bye Bye --")
+    _ =  println("-- Bye Bye --")
   } yield ()
 
   program.run(x => x)
