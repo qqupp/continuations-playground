@@ -2,7 +2,7 @@ package example
 
 import data.Tree._
 
-object TreeNaive {
+object MapTreeNaive {
 
   def map[A, B](t: Tree[A])(f: A => B): Tree[B] = t match {
     case Leaf(a)    => Leaf(f(a))
@@ -21,7 +21,7 @@ object TreeNaive {
 
 }
 
-object TreeCont {
+object MapTreeContinuation {
 
   def map[A, B](t: Tree[A])(f: A => B): Tree[B] = {
 
@@ -41,7 +41,7 @@ object TreeCont {
 }
 
 
-object TowardContDataType {
+object MapTreeTowardsContDataType {
 
   def map_[A, B](t: Tree[A])(f: A => B): Tree[B] = {
 
@@ -86,7 +86,7 @@ object TowardContDataType {
 
 }
 
-object TreeWContinuation extends App {
+object MapTreeContinuationMonad {
 
   import data.continuation.basic.Continuation
   import data.continuation.basic.Continuation._
@@ -106,9 +106,29 @@ object TreeWContinuation extends App {
     mapping(t).run(identity)
   }
 
-  val t1 = Node(Leaf("a"), Node(Leaf("b"), Leaf("c")))
-
-  val t2 = map(t1)(str => str.startsWith("b"))
-
-  println(t2)
 }
+
+object MapTreeContinuationTailrec {
+  import scala.util.control.TailCalls._
+
+  def map[A, B](t: Tree[A])(f: A => B): Tree[B] = {
+
+    def mapping(tt: Tree[A], k: Tree[B] => TailRec[Tree[B]]): TailRec[Tree[B]] = tt match {
+      case Leaf(a)      => k(Leaf(f(a)))
+      case Node(la, ra) =>
+        mapping(la, lb => tailcall(
+          mapping(ra, rb => tailcall(
+            k(Node(lb, rb))
+          ))
+        ))
+    }
+
+    mapping(t, x => done(x)).result
+  }
+
+}
+
+object MapTreeContinuationMonadTailrec {
+
+}
+

@@ -1,6 +1,6 @@
 package data.continuation.basic
 
-case class Continuation[A, R](k: (A => R) => R) { self =>
+final case class Continuation[A, R](k: (A => R) => R) { self =>
   def flatMap[B](f: A => Continuation[B, R]): Continuation[B, R] =
     Continuation(   br  =>  k( a => f(a).k(br) )   )
 
