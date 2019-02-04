@@ -2,6 +2,19 @@ package example
 
 import data.Tree._
 
+object TreePlaygroung {
+  def treeFromInput: Tree[Int] = ???
+  val tree1: Tree[Int] = Node(Leaf(1), Leaf(2))
+  val tree2: Tree[Int] = Node(Leaf(1), Leaf(3))
+
+  val sameTrees: Boolean = tree1 == tree2
+
+  val tree3: Tree[Int] = treeFromInput
+  val tree4: Tree[Int] = treeFromInput
+
+  val sameInput: Boolean = tree1 == tree2
+}
+
 object MapTreeNaive {
 
   def map[A, B](t: Tree[A])(f: A => B): Tree[B] = t match {
