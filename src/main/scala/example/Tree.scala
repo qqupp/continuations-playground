@@ -128,7 +128,26 @@ object MapTreeContinuationTailrec {
 
 }
 
-object MapTreeContinuationMonadTailrec {
+object MapTreeContinuationTailrecMonad {
+
+  import data.continuation.tailrec.Continuation
+  import data.continuation.tailrec.Continuation._
+
+  def map[A, B](t: Tree[A])(f: A => B): Tree[B] = {
+
+    def mapping(tt: Tree[A]): Continuation[Tree[B], Tree[B]] = tt match {
+      case Leaf(a)      => pure(Leaf(f(a)))
+      case Node(la, ra) =>
+        for {
+          lb <- mapping(la)
+          rb <- mapping(ra)
+          v  <- pure(Node(lb, rb))
+        } yield v
+
+    }
+
+    mapping(t).run(identity)
+  }
 
 }
 
