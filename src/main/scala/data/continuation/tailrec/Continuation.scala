@@ -19,5 +19,5 @@ final case class Continuation[A, R](k: (A => TailRec[R]) => TailRec[R]) { self =
 }
 
 object Continuation {
-  def pure[A, R](value: A): Continuation[A, R] = Continuation(  f => tailcall{ f(value) }  )
+  def pure[A, R](value: A): Continuation[A, R] = Continuation(  k => tailcall{ k(value) }  )
 }

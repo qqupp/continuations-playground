@@ -79,7 +79,7 @@ object MapTreeTowardsContDataType {
       }
   }
 
-  def pure[A, R](a: A) = Cont[A,R](f => f(a))
+  def pure[A, R](a: A) = Cont[A,R](k => k(a))
 
 
   def map[A, B](t: Tree[A])(f: A => B): Tree[B] = {
