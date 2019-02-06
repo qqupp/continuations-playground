@@ -6,9 +6,9 @@ object Goto extends App {
 
   val addressTable = new scala.collection.mutable.HashMap[String, Unit => Unit]()
 
-  def LABEL(value: String) = Continuation[Unit, Unit]{ k => addressTable(value) = k; k()}
-  def GOTO(value: String)= Continuation[Unit, Unit](k => addressTable(value)())
-  def CONTINUE = Continuation[Unit, Unit](k => k())
+  def LABEL(value: String): Continuation[Unit, Unit] = Continuation[Unit, Unit]{ k => addressTable(value) = k; k()}
+  def GOTO(value: String): Continuation[Unit, Unit]= Continuation[Unit, Unit](k => addressTable(value)())
+  def CONTINUE: Continuation[Unit, Unit] = Continuation[Unit, Unit](k => k())
 
   var counter = 0
   var game = 0
